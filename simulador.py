@@ -6,7 +6,7 @@ Datos computacionales. No son mediciones con CASSY-Lab.
 Uso: python simulador.py
      python simulador.py --interactivo
      python simulador.py --verificar
-Consulte DOCUMENTACION.html y LEEME.txt.
+Guía de uso: docs/guia.md.
 """
 from __future__ import annotations
 
@@ -678,7 +678,7 @@ def escribir_resumen(cfg, tablas, comprobaciones, destino):
         "cifras redondeadas del informe. No se fuerzan resultados históricos.\n"
         "Las covarianzas y dispersiones son estadísticas del registro sintético,\n"
         "no incertidumbres de sensores ni intervalos de confianza de materiales.\n"
-        "Consulte DOCUMENTACION.html para identificar cada archivo y unidad.\n")
+        "Guía de archivos y unidades: docs/guia.md, en la carpeta del proyecto.\n")
     (destino/"RESUMEN.txt").write_text(texto, encoding="utf-8")
 
 

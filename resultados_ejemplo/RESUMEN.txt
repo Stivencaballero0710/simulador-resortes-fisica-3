@@ -11,4 +11,4 @@ El archivo comparacion_con_informe.csv contrasta cifras nuevas con las
 cifras redondeadas del informe. No se fuerzan resultados históricos.
 Las covarianzas y dispersiones son estadísticas del registro sintético,
 no incertidumbres de sensores ni intervalos de confianza de materiales.
-Consulte DOCUMENTACION.html para identificar cada archivo y unidad.
+Guía de archivos y unidades: docs/guia.md, en la carpeta del proyecto.

@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "descripcion": "Simulador de suspensión vertical. Datos computacionales, no mediciones experimentales.",
-  "estado_entrega": "Código preparado; ejecución en Python pendiente de verificar.",
+  "estado_entrega": "Simulador verificado. Detalles en docs/verificacion.md.",
   "fisica": {
     "g": 9.81,
     "d": 0.001,
