@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Documentación del simulador de resortes — Física 3</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Documentación del simulador de resortes — Física
+3</h1>
+</header>
+<h1 id="documentación-del-simulador-de-resortes-física-3">Documentación
+del simulador de resortes — Física 3</h1>
+<p>El programa implementa la suspensión vertical idealizada del proyecto
+de Física 3, grupo F1B de la UIS. Compara el acero Oteva 90 (AC), el
+inoxidable AISI 302 (IN) y el titanio B120VCA (TI), genera registros
+sintéticos, ajusta sus parámetros y permite explorar el movimiento en
+una interfaz local.</p>
+<p><strong>Versión 1.0.0.</strong> Implementación elaborada a partir del
+informe. El programa se ejecutó en Python 3.12.14: pasaron las nueve
+pruebas y las 18 comparaciones analíticas; la exportación completa
+terminó correctamente. Se incluye una ejecución en resultados_ejemplo.
+Los controles se comprobaron sin pantalla y la vista generada se
+inspeccionó visualmente. Consulte VALIDACION.md para conocer el alcance
+y las versiones.</p>
+<h1 id="archivos-incluidos">Archivos incluidos</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Archivo</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>simulador.py</td>
+<td>Programa principal: modelo físico, generación, ajustes, ocho tablas,
+cinco gráficas, interfaz, GIF y verificación.</td>
+</tr>
+<tr class="even">
+<td>parametros.json</td>
+<td>Condiciones del escenario, materiales, procedencia y opciones
+numéricas.</td>
+</tr>
+<tr class="odd">
+<td>referencia_informe.json</td>
+<td>Valores publicados en las tablas 2 a 7, usados únicamente para
+comparar resultados.</td>
+</tr>
+<tr class="even">
+<td>requirements.txt</td>
+<td>Dependencias con intervalos de versiones.</td>
+</tr>
+<tr class="odd">
+<td>pruebas.py</td>
+<td>Nueve pruebas de física, cálculo y entradas.</td>
+</tr>
+<tr class="even">
+<td>LEEME.txt</td>
+<td>Inicio rápido y comandos de ejecución.</td>
+</tr>
+<tr class="odd">
+<td>DOCUMENTACION.md</td>
+<td>Manual en texto editable y legible en GitHub.</td>
+</tr>
+<tr class="even">
+<td>DOCUMENTACION.html</td>
+<td>Manual completo para abrir e imprimir en el navegador.</td>
+</tr>
+<tr class="odd">
+<td>instalar.bat</td>
+<td>Crea el entorno local de Python e instala las bibliotecas.</td>
+</tr>
+<tr class="even">
+<td>abrir_simulador.bat</td>
+<td>Abre la interfaz en Windows.</td>
+</tr>
+<tr class="odd">
+<td>generar_resultados.bat</td>
+<td>Genera tablas, series, gráficas y animación.</td>
+</tr>
+<tr class="even">
+<td>verificar.bat</td>
+<td>Ejecuta las pruebas en Windows.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="instalación-y-ejecución">Instalación y ejecución</h1>
+<p>En Windows, extraiga toda la carpeta del ZIP e instale Python 3.11 o
+posterior con Tcl/Tk. Ejecute <strong>instalar.bat</strong> y espere a
+que termine. Después ejecute <strong>verificar.bat</strong>. La
+instalación necesita internet; el simulador funciona localmente.</p>
+<p>Para usar los controles, abra <strong>abrir_simulador.bat</strong>.
+Para generar todos los archivos, abra
+<strong>generar_resultados.bat</strong>. La ventana de consola muestra
+los errores y permanece abierta al terminar.</p>
+<p>También puede usar una terminal desde la carpeta descomprimida:</p>
+<pre class="text"><code>python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe pruebas.py
+.venv\Scripts\python.exe simulador.py
+.venv\Scripts\python.exe simulador.py --interactivo</code></pre>
+<p>En Linux y macOS sustituya la ruta del intérprete por
+.venv/bin/python. La interfaz requiere un entorno gráfico y un backend
+de Matplotlib compatible, como Tk. El modo de exportación utiliza Agg y
+no necesita abrir ventanas.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opción</th>
+<th>Comportamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sin opciones</td>
+<td>Genera el análisis completo y el GIF.</td>
+</tr>
+<tr class="even">
+<td>–interactivo</td>
+<td>Abre solamente la interfaz.</td>
+</tr>
+<tr class="odd">
+<td>–verificar</td>
+<td>Ejecuta solamente las comparaciones con las soluciones
+analíticas.</td>
+</tr>
+<tr class="even">
+<td>–sin-gif</td>
+<td>Genera el análisis completo omitiendo el GIF.</td>
+</tr>
+<tr class="odd">
+<td>–config ruta.json</td>
+<td>Carga una copia modificada de los parámetros.</td>
+</tr>
+<tr class="even">
+<td>–semilla 2250191</td>
+<td>Fija la semilla de esa ejecución.</td>
+</tr>
+<tr class="odd">
+<td>–salida resultados/ensayo_01</td>
+<td>Usa una carpeta nueva con ese nombre.</td>
+</tr>
+</tbody>
+</table>
+<p>No se sobrescriben carpetas existentes. Sin –salida, se crea una
+carpeta con fecha, hora y microsegundos dentro de resultados.</p>
+<h1 id="modelo-físico">Modelo físico</h1>
+<p>La coordenada x se mide desde el equilibrio, con sentido positivo
+hacia abajo. La masa m incluye la carga y el accesorio. El peso está
+compensado en esa posición, por lo que no se agrega otra fuerza
+constante a la ecuación dinámica.</p>
+<p>La rigidez se calcula mediante k = G d⁴/(8 D³ n). Para IN se obtiene
+G = E/[2(1 + ν)]. La elongación estática ideal es Δℓ = mg/k. Durante la
+caracterización se ajusta mg = k Δℓ + c, conservando el intercepto
+c.</p>
+<p>El sistema que integra el programa es dx/dt = v y dv/dt = −(bv +
+kx)/m. Las condiciones iniciales son x(0) = A₀ y v(0) = 0. Se utiliza
+solve_ivp con DOP853, rtol = 10⁻¹⁰, atol = 10⁻¹² y paso interno máximo
+de 0,03 s. El paso de salida de 0,005 s es distinto del paso adaptativo
+interno.</p>
+<p>Se definen ω₀ = √(k/m), γ = b/(2m) y ζ = b/(2√(km)). Cuando ζ &lt; 1,
+ωd = √(ω₀² − γ²) y T = 2π/ωd. El programa no asigna un período a los
+regímenes crítico y sobreamortiguado.</p>
+<p>La solución subamortiguada utilizada para comprobar la integración es
+x(t) = A₀ exp(−γt)[cos(ωd t) + (γ/ωd) sen(ωd t)]. El término seno
+permite cumplir v(0) = 0. Para ζ = 1 se utiliza x(t) = A₀(1 +
+ω₀t)exp(−ω₀t). Para ζ &gt; 1 se emplea la combinación de las dos
+exponenciales reales, calculando la raíz lenta sin cancelación
+numérica.</p>
+<p>La aceleración se obtiene de a = −(bv + kx)/m. La energía respecto al
+equilibrio es E = mv²/2 + kx²/2 y cumple dE/dt = −bv². No se deriva dos
+veces la señal ruidosa para calcular la aceleración.</p>
+<p>La holgura es H = Límite − (mg/k + A₀). Esta comparación utiliza el
+recorrido geométrico asignado, no un límite elástico certificado del
+resorte.</p>
+<h1 id="parámetros-del-informe">Parámetros del informe</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Magnitud</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gravedad</td>
+<td>9,81 m/s²</td>
+</tr>
+<tr class="even">
+<td>Diámetro del alambre d</td>
+<td>0,001 m</td>
+</tr>
+<tr class="odd">
+<td>Diámetro medio D</td>
+<td>0,025 m</td>
+</tr>
+<tr class="even">
+<td>Espiras activas n</td>
+<td>20</td>
+</tr>
+<tr class="odd">
+<td>G de AC</td>
+<td>79,60 GPa</td>
+</tr>
+<tr class="even">
+<td>E de IN y ν supuesto</td>
+<td>185 GPa y 0,30</td>
+</tr>
+<tr class="odd">
+<td>G de IN calculado</td>
+<td>71,1538461538 GPa</td>
+</tr>
+<tr class="even">
+<td>G de TI</td>
+<td>41,40 GPa</td>
+</tr>
+<tr class="odd">
+<td>Masas estáticas</td>
+<td>0,150; 0,200; 0,250 y 0,350 kg</td>
+</tr>
+<tr class="even">
+<td>Masa de referencia</td>
+<td>0,250 kg</td>
+</tr>
+<tr class="odd">
+<td>Masa reservada</td>
+<td>0,300 kg</td>
+</tr>
+<tr class="even">
+<td>Masa del accesorio</td>
+<td>0,080 kg, incluida en la masa total</td>
+</tr>
+<tr class="odd">
+<td>Separación inicial A₀</td>
+<td>0,0100 m</td>
+</tr>
+<tr class="even">
+<td>Recorrido asignado</td>
+<td>0,220 m</td>
+</tr>
+<tr class="odd">
+<td>ζ de referencia</td>
+<td>0,020</td>
+</tr>
+<tr class="even">
+<td>Duración y muestreo</td>
+<td>15 s y 200 Hz: 3001 muestras</td>
+</tr>
+<tr class="odd">
+<td>Desviación del ruido</td>
+<td>0,00005 m = 0,05 mm</td>
+</tr>
+<tr class="even">
+<td>Paso de cuantización</td>
+<td>0,0001 m = 0,1 mm</td>
+</tr>
+<tr class="odd">
+<td>Semilla</td>
+<td>2250191</td>
+</tr>
+<tr class="even">
+<td>Barrido independiente de ζ</td>
+<td>0; 0,02; 0,10; 0,30; 1; 1,5</td>
+</tr>
+</tbody>
+</table>
+<p>Los parámetros están expresados en unidades del SI en
+parametros.json. El módulo del titanio procede del antecedente citado en
+el informe y no representa a todas las aleaciones de titanio. El
+amortiguamiento es una propiedad equivalente del sistema; no se trata
+como una constante propia de cada metal.</p>
+<h1 id="generación-y-tratamiento-de-datos">Generación y tratamiento de
+datos</h1>
+<p>Primero se crea un generador NumPy Generator(PCG64) con la semilla
+indicada. Se generan todas las elongaciones estáticas en el orden AC, IN
+y TI; dentro de cada material se recorren las masas ascendentes y las
+repeticiones. Después se generan los registros dinámicos por material,
+con REF antes de VAL y las repeticiones ascendentes. Este orden queda
+registrado.</p>
+<p>Para la estática se calculan tres elongaciones por masa y material:
+36 valores distribuidos en 12 condiciones. A mg/k se añade ruido
+gaussiano y luego se redondea al paso de cuantización. Se calcula la
+media de las tres repeticiones y se ajusta fuerza frente a elongación
+mediante mínimos cuadrados. Se exportan k, c, R² y los errores estándar
+de la regresión.</p>
+<p>Para la dinámica se fija b = 2ζ√(k mref) con mref = 0,250 kg y ζ =
+0,020. Ese b se conserva cuando la masa pasa a 0,300 kg. Por tanto, la
+razón de amortiguamiento de la masa reservada cambia a aproximadamente
+0,01826.</p>
+<p>Se generan tres registros REF y tres VAL por material: 18 series.
+Cada archivo conserva t, x limpia, x sintética, v, a y E. El ruido
+afecta la señal de posición destinada al ajuste; la velocidad, la
+aceleración y la energía corresponden a la trayectoria limpia.</p>
+<p>El ajuste dinámico estima A, γ, ωd y un desplazamiento constante
+mediante curve_fit. La frecuencia inicial se estima con la transformada
+rápida de Fourier de la señal. Después se obtienen T = 2π/ωd y b = 2mγ.
+Se exportan el error cuadrático medio y los errores estándar locales del
+ajuste.</p>
+<p>La predicción de 0,300 kg utiliza exclusivamente la rigidez del
+ajuste estático y el promedio de b de los tres registros REF. Los
+ajustes de los registros VAL se usan para contrastar sus períodos; no se
+utilizan para corregir la predicción. La diferencia relativa se calcula
+con el promedio del período reservado como denominador.</p>
+<p>Las dispersiones y covarianzas describen datos sintéticos y el ajuste
+empleado. No son incertidumbres instrumentales ni demuestran la
+variabilidad de un resorte físico. Los resultados conservan más cifras
+en los CSV que en el informe.</p>
+<h1 id="amortiguamiento-y-sensibilidad">Amortiguamiento y
+sensibilidad</h1>
+<p>En el barrido se usa TI con m = 0,300 kg. Para cada ζ se calcula
+nuevamente b = 2ζ√(km). Este procedimiento es independiente de la
+comparación REF/VAL.</p>
+<p>Cuando 0 &lt; ζ &lt; 1, el tiempo al 5 % es una cota basada en la
+amplitud exponencial: t₅ = ln[1/(0,05√(1 − ζ²))]/(ζω₀). Esta cota
+garantiza que la amplitud posterior permanezca por debajo del umbral.
+Para ζ = 0 el tiempo no es finito. Para ζ ≥ 1 se busca con brentq el
+cruce monótono de x/A₀ = 0,05.</p>
+<p>La aceleración inicial es −kA₀/m. No depende de b porque la velocidad
+inicial es cero. El programa calcula el máximo absoluto de aceleración
+de la trayectoria; no supone que aumentar el amortiguamiento reduzca ese
+máximo.</p>
+<p>La sensibilidad combina G ±5 %, d ±1 % y D ±1 %, con n fijo. El
+mínimo k se obtiene usando G y d mínimos y D máximo; para el máximo se
+invierten esos extremos. Los intervalos son supuestos deterministas, no
+intervalos de confianza.</p>
+<h1 id="resultados-nominales-de-referencia">Resultados nominales de
+referencia</h1>
+<p>Estos valores se calculan directamente a partir de los parámetros,
+sin ruido ni ajustes. Sirven para revisar las unidades y la
+configuración.</p>
+<table>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Caso</th>
+<th style="text-align: right;">k (N/m)</th>
+<th style="text-align: right;">T con masa reservada (s)</th>
+<th style="text-align: right;">a máxima (m/s²)</th>
+<th style="text-align: right;">Holgura (cm)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AC</td>
+<td style="text-align: right;">31,840000</td>
+<td style="text-align: right;">0,609995</td>
+<td style="text-align: right;">1,061333</td>
+<td style="text-align: right;">11,756910</td>
+</tr>
+<tr class="even">
+<td>IN</td>
+<td style="text-align: right;">28,461538</td>
+<td style="text-align: right;">0,645184</td>
+<td style="text-align: right;">0,948718</td>
+<td style="text-align: right;">10,659730</td>
+</tr>
+<tr class="odd">
+<td>TI</td>
+<td style="text-align: right;">16,560000</td>
+<td style="text-align: right;">0,845829</td>
+<td style="text-align: right;">0,552000</td>
+<td style="text-align: right;">3,228261</td>
+</tr>
+</tbody>
+</table>
+<p>Con estas condiciones, TI conserva holgura positiva y presenta la
+menor aceleración. La conclusión corresponde a configuraciones
+idealizadas; no acredita la resistencia, el costo ni la sostenibilidad
+de componentes reales.</p>
+<h1 id="archivos-generados">Archivos generados</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Salida</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>tabla_1.csv</td>
+<td>Parámetros de la ejecución y procedencia de los módulos.</td>
+</tr>
+<tr class="even">
+<td>tabla_2.csv</td>
+<td>Elongaciones estáticas, medias y dispersión sintética.</td>
+</tr>
+<tr class="odd">
+<td>tabla_3.csv</td>
+<td>Parámetros ajustados de los 18 registros dinámicos.</td>
+</tr>
+<tr class="even">
+<td>tabla_4.csv</td>
+<td>Predicción reservada, promedio ajustado y diferencia relativa.</td>
+</tr>
+<tr class="odd">
+<td>tabla_5.csv</td>
+<td>Respuesta nominal, aceleración máxima y holgura.</td>
+</tr>
+<tr class="even">
+<td>tabla_6.csv</td>
+<td>Barrido de amortiguamiento y tiempo al 5 %.</td>
+</tr>
+<tr class="odd">
+<td>tabla_7.csv</td>
+<td>Extremos de rigidez y holgura con k mínimo.</td>
+</tr>
+<tr class="even">
+<td>tabla_8.csv</td>
+<td>Propuesta de reutilización del informe; no es un inventario
+medido.</td>
+</tr>
+<tr class="odd">
+<td>ajustes_estaticos.csv</td>
+<td>Pendientes, interceptos, covarianzas resumidas y R².</td>
+</tr>
+<tr class="even">
+<td>series/AC-REF-1.csv y análogos</td>
+<td>Las 18 series con trayectoria limpia y señal sintética.</td>
+</tr>
+<tr class="odd">
+<td>series/AC-PRED.csv y análogos</td>
+<td>Las tres predicciones calculadas desde REF.</td>
+</tr>
+<tr class="even">
+<td>series/TI-zeta-*.csv</td>
+<td>Las seis trayectorias del barrido independiente.</td>
+</tr>
+<tr class="odd">
+<td>graficas/figura_1 a figura_5</td>
+<td>PNG de 240 ppp y PDF vectoriales.</td>
+</tr>
+<tr class="even">
+<td>graficas/figura_A1_interfaz.png</td>
+<td>Captura generada de la interfaz de esta implementación.</td>
+</tr>
+<tr class="odd">
+<td>graficas/animacion_TI.gif</td>
+<td>Animación TI, masa reservada y ζ = 0,30.</td>
+</tr>
+<tr class="even">
+<td>verificacion_numerica.csv</td>
+<td>Errores frente a la solución analítica y pruebas de energía.</td>
+</tr>
+<tr class="odd">
+<td>comparacion_con_informe.csv</td>
+<td>Diferencias frente a las cifras redondeadas de las tablas
+originales.</td>
+</tr>
+<tr class="even">
+<td>parametros_ejecucion.json</td>
+<td>Configuración efectiva, versiones, semilla, orden de generación y
+huella del código.</td>
+</tr>
+<tr class="odd">
+<td>RESUMEN.txt</td>
+<td>Selección nominal y resumen de las comprobaciones de esa
+ejecución.</td>
+</tr>
+<tr class="even">
+<td>ESTADO.txt</td>
+<td>Estado final de la verificación numérica.</td>
+</tr>
+</tbody>
+</table>
+<p>Cada CSV tiene una copia terminada en _es.csv, con separador punto y
+coma y coma decimal. El CSV estándar utiliza coma como separador y punto
+decimal. Los archivos se codifican en UTF-8 con marca de codificación
+para facilitar su lectura.</p>
+<p>En la tabla 6, un período vacío significa que no aplica. Un tiempo
+inf significa que no se alcanza el umbral de manera permanente. No deben
+interpretarse como cero.</p>
+<h1 id="uso-de-la-interfaz">Uso de la interfaz</h1>
+<p>Seleccione AC, IN o TI. La barra de masa controla la masa total
+suspendida, incluido el accesorio. La barra ζ cambia el amortiguamiento
+del sistema y recalcula b. La barra A₀ controla la separación inicial en
+milímetros.</p>
+<p>La gráfica derecha muestra la posición respecto al equilibrio. La
+hélice de la izquierda es un esquema de la elongación; no representa la
+longitud real del alambre ni el esfuerzo mecánico. La línea discontinua
+señala el recorrido asignado. La etiqueta de holgura indica si la
+configuración cabe dentro de ese supuesto geométrico.</p>
+<p>Pausa / continuar detiene o reanuda el movimiento. Reiniciar tiempo
+devuelve el marcador al inicio. Cambiar un parámetro recalcula la
+trayectoria y reinicia el tiempo. Los cambios de los controles no
+modifican parametros.json ni los resultados ya exportados.</p>
+<h1 id="organización-del-código">Organización del código</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Función</th>
+<th>Responsabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>cargar_configuracion</td>
+<td>Lee parámetros, valida entradas, calcula G de IN, k y b de
+referencia.</td>
+</tr>
+<tr class="even">
+<td>integrar / resolver</td>
+<td>Integra el sistema con DOP853 y obtiene x, v, a y energía.</td>
+</tr>
+<tr class="odd">
+<td>analitica</td>
+<td>Calcula soluciones independientes para comprobar la
+integración.</td>
+</tr>
+<tr class="even">
+<td>tiempo_al_5</td>
+<td>Obtiene la cota exponencial o resuelve el cruce monótono.</td>
+</tr>
+<tr class="odd">
+<td>senal_sintetica</td>
+<td>Añade ruido gaussiano y aplica cuantización.</td>
+</tr>
+<tr class="even">
+<td>ajustar_estatica</td>
+<td>Estima k e intercepto con mínimos cuadrados.</td>
+</tr>
+<tr class="odd">
+<td>ajustar_dinamica</td>
+<td>Estima parámetros de la oscilación a partir de la señal
+sintética.</td>
+</tr>
+<tr class="even">
+<td>generar</td>
+<td>Ejecuta el protocolo, organiza tablas y guarda las series.</td>
+</tr>
+<tr class="odd">
+<td>comparar_informe</td>
+<td>Contrasta las salidas con cifras históricas sin usarlas en el
+cálculo.</td>
+</tr>
+<tr class="even">
+<td>verificar</td>
+<td>Comprueba 18 combinaciones de material y amortiguamiento.</td>
+</tr>
+<tr class="odd">
+<td>graficar</td>
+<td>Produce las cinco figuras principales.</td>
+</tr>
+<tr class="even">
+<td>crear_interfaz</td>
+<td>Construye los controles y la animación local.</td>
+</tr>
+<tr class="odd">
+<td>exportar_gif</td>
+<td>Guarda una animación con PillowWriter.</td>
+</tr>
+<tr class="even">
+<td>main</td>
+<td>Procesa opciones, elige el modo y registra la ejecución.</td>
+</tr>
+</tbody>
+</table>
+<p>NumPy administra vectores, ruido, FFT y ajustes estáticos. SciPy
+resuelve la ecuación diferencial, ajusta las señales y busca raíces.
+Pandas organiza y exporta los datos. Matplotlib dibuja las gráficas y
+los controles. Pillow permite guardar el GIF.</p>
+<h1 id="verificación-y-reproducibilidad">Verificación y
+reproducibilidad</h1>
+<p>pruebas.py contiene nueve pruebas. Una comprueba las rigideces; otra
+revisa el caso sin amortiguamiento en un cuarto, medio y un período.
+También se comprueban los regímenes no oscilatorios, el tiempo al 5 %,
+las 18 comparaciones analíticas, la recuperación de parámetros desde una
+señal limpia, la repetibilidad del ruido, las magnitudes nominales y el
+rechazo de entradas inválidas.</p>
+<p>La comparación numérica exige error máximo de posición menor de 10⁻⁸
+m y de velocidad menor de 10⁻⁷ m/s. La energía sin amortiguamiento debe
+tener una deriva relativa menor de 10⁻⁷. Con amortiguamiento se permite
+solamente un aumento relativo por paso inferior a 10⁻⁸ para tolerar el
+redondeo numérico. Los resultados reales se escriben al ejecutar; no se
+sustituye el error calculado por el 8,16 × 10⁻¹² m citado en el
+informe.</p>
+<p>No se dispuso del script original que generó las series del informe.
+Aunque se conserva la semilla 2250191, la secuencia depende también del
+generador, del orden de consumo del ruido, del modelo de ajuste y de las
+versiones. Por ello no se garantiza igualdad literal de las últimas
+cifras de los resultados sintéticos históricos.</p>
+<p>referencia_informe.json contiene datos redondeados transcritos del
+informe y solo se abre desde comparar_informe. Los registros nuevos
+siempre se generan desde las ecuaciones. Las diferencias se entregan en
+un archivo aparte. Si se cambia la configuración, esa comparación
+continúa usando los valores históricos y debe interpretarse como
+tal.</p>
+<p>Para repetir una ejecución conserve parametros_ejecucion.json, el
+código y las versiones instaladas. Puede registrar las versiones exactas
+con python -m pip freeze &gt; versiones_instaladas.txt. Los intervalos
+de requirements.txt facilitan la instalación, pero no fijan un entorno
+idéntico en todas las fechas.</p>
+<h1 id="problemas-frecuentes">Problemas frecuentes</h1>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situación</th>
+<th>Qué revisar</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Python no se reconoce</td>
+<td>Instale Python y abra de nuevo la terminal; en Windows puede usar el
+lanzador py.</td>
+</tr>
+<tr class="even">
+<td>Falta numpy, scipy u otra biblioteca</td>
+<td>Ejecute instalar.bat o instale requirements.txt con el intérprete de
+.venv.</td>
+</tr>
+<tr class="odd">
+<td>La interfaz no se abre</td>
+<td>Use Python de escritorio con Tcl/Tk; pruebe python -m tkinter. En
+servidores sin pantalla utilice la exportación.</td>
+</tr>
+<tr class="even">
+<td>FileExistsError al guardar</td>
+<td>Use otra carpeta con –salida o deje que se cree una carpeta
+automática.</td>
+</tr>
+<tr class="odd">
+<td>La exportación tarda</td>
+<td>El GIF guarda muchos fotogramas; use –sin-gif si solo necesita
+tablas y gráficas.</td>
+</tr>
+<tr class="even">
+<td>Las últimas cifras difieren del informe</td>
+<td>Revise comparacion_con_informe.csv y las notas de reproducibilidad.
+No reemplace los datos calculados por las cifras esperadas.</td>
+</tr>
+<tr class="odd">
+<td>Una prueba falla</td>
+<td>Revise el mensaje, los parámetros y las versiones antes de presentar
+la ejecución como verificada.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="alcance-físico-y-procedencia">Alcance físico y procedencia</h1>
+<p>La simulación reemplaza la adquisición prevista con CASSY-Lab porque,
+según el informe, no fue posible coordinar el acceso al laboratorio con
+el señor Yebrail. Todos los archivos producidos se identifican como
+resultados de simulación.</p>
+<p>Se omiten la masa del resorte, el rozamiento seco, la precarga, la
+plasticidad, la variación térmica y las resonancias internas. La
+comparación con una solución analítica comprueba la implementación del
+modelo. Una validación experimental requeriría caracterizar resortes y
+sujeciones reales.</p>
+<p>Las propiedades se conservan como aparecen en el informe; no se
+realizó una nueva verificación de los valores de los artículos
+originales para esta implementación.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Referencia del informe</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Gu, Hou y Ye (2021). DOI 10.1177/09544062211010210</td>
+<td>Módulo de corte de AC y relación con la geometría.</td>
+</tr>
+<tr class="even">
+<td>Zani y Solazzi (2024). DOI 10.3390/eng5030089</td>
+<td>Módulo de Young de IN; ν = 0,30 sigue siendo un supuesto.</td>
+</tr>
+<tr class="odd">
+<td>Li et al. (2024). DOI 10.3390/aerospace11070514</td>
+<td>Antecedente bibliográfico de G de B120VCA citado por el
+informe.</td>
+</tr>
+<tr class="even">
+<td>Yokoyama (2023). DOI 10.1007/s00419-023-02414-3</td>
+<td>Orientación del análisis de amortiguamiento.</td>
+</tr>
+<tr class="odd">
+<td>Lee y Thompson (2001). DOI 10.1006/jsvi.2000.3169</td>
+<td>Límites del modelo de resorte sin masa.</td>
+</tr>
+</tbody>
+</table>
+<h1 id="documentación-oficial-de-las-bibliotecas">Documentación oficial
+de las bibliotecas</h1>
+<ul>
+<li><p><a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html">SciPy
+solve_ivp</a>.</p></li>
+<li><p><a
+href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html">SciPy
+curve_fit</a>.</p></li>
+<li><p><a
+href="https://numpy.org/doc/stable/reference/random/generator.html">NumPy
+Generator</a>.</p></li>
+<li><p><a
+href="https://matplotlib.org/stable/api/animation_api.html">Matplotlib
+animaciones</a>.</p></li>
+<li><p><a
+href="https://matplotlib.org/stable/api/widgets_api.html">Matplotlib
+controles</a>.</p></li>
+</ul>
+</body>
+</html>

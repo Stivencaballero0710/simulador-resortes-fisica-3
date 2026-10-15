@@ -1,0 +1,65 @@
+SIMULADOR DE RESORTES - FISICA 3 - UIS - GRUPO F1B
+Version 1.0.0
+
+1. DESCOMPRIMIR
+Extraiga toda la carpeta del ZIP. No ejecute los archivos dentro del ZIP.
+
+2. INSTALAR EN WINDOWS
+Instale Python 3.11 o posterior con Tcl/Tk.
+Ejecute instalar.bat. Se crea .venv y se instalan las cinco bibliotecas.
+La instalacion requiere internet; la simulacion funciona localmente.
+
+3. VERIFICAR
+Ejecute verificar.bat.
+Se incluyen 9 pruebas: rigideces, MAS sin amortiguamiento, regimenes
+critico/sobreamortiguado, tiempo al 5 %, 18 comparaciones analiticas,
+recuperacion de parametros, ruido reproducible, resultados nominales
+y rechazo de entradas invalidas.
+
+4. ABRIR LA INTERFAZ
+Ejecute abrir_simulador.bat.
+Controles: AC/IN/TI, masa total, zeta y separacion inicial.
+La masa del accesorio ya esta incluida en la masa total.
+
+5. GENERAR DATOS, TABLAS, GRAFICAS Y GIF
+Ejecute generar_resultados.bat.
+Los archivos se crean en resultados/FECHA_HORA.
+Cada ejecucion usa una carpeta nueva.
+
+6. COMANDOS MANUALES
+python -m venv .venv
+Windows: .venv\Scripts\python.exe -m pip install -r requirements.txt
+Linux/macOS: .venv/bin/python -m pip install -r requirements.txt
+
+Con el entorno activado:
+python pruebas.py
+python simulador.py
+python simulador.py --interactivo
+python simulador.py --verificar
+python simulador.py --sin-gif
+python simulador.py --semilla 2250191 --salida resultados/ensayo_01
+
+7. DOCUMENTACION
+Abra DOCUMENTACION.html en el navegador.
+Contiene el modelo, unidades, metodologia, archivos de salida,
+explicacion de funciones, pruebas, bibliografia y solucion de problemas.
+Puede imprimirlo o guardarlo como PDF desde el navegador.
+
+8. RELACION CON EL INFORME
+Se implementan las ecuaciones, materiales, geometria, masas, ruido y
+semilla descritos en el informe. No se dispuso del script original que
+genero las series historicas. La semilla por si sola no fija la secuencia:
+tambien importan el generador, el orden de llamadas y el ajuste empleado.
+Por ello, las cifras aleatorias nuevas pueden diferir en las ultimas
+cifras. comparacion_con_informe.csv muestra las diferencias sin cambiar
+los resultados. referencia_informe.json nunca se usa para generar datos.
+
+9. ESTADO DE ESTA ENTREGA
+Ejecucion verificada en Python 3.12.14: 9 pruebas aprobadas y 18/18
+comparaciones analiticas aprobadas. La exportacion completa termino
+correctamente. resultados_ejemplo incluye CSV, graficas, interfaz y GIF.
+Los controles se ejercitaron en modo sin pantalla. Consulte VALIDACION.md
+para conocer el entorno, los errores calculados y las limitaciones.
+
+Todos los datos producidos son simulados, no mediciones experimentales.
+

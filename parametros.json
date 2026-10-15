@@ -1,0 +1,87 @@
+{
+  "version": "1.0.0",
+  "descripcion": "Simulador de suspensión vertical. Datos computacionales, no mediciones experimentales.",
+  "estado_entrega": "Código preparado; ejecución en Python pendiente de verificar.",
+  "fisica": {
+    "g": 9.81,
+    "d": 0.001,
+    "D": 0.025,
+    "n": 20,
+    "m_ref": 0.25,
+    "m_val": 0.3,
+    "m_accesorio": 0.08,
+    "A0": 0.01,
+    "limite": 0.22,
+    "duracion": 15,
+    "dt": 0.005,
+    "sigma": 0.00005,
+    "paso_cuantizacion": 0.0001,
+    "zeta_ref": 0.02,
+    "semilla": 2250191,
+    "rtol": 1e-10,
+    "atol": 1e-12,
+    "max_step": 0.03
+  },
+  "masas_estaticas": [
+    0.15,
+    0.2,
+    0.25,
+    0.35
+  ],
+  "repeticiones": 3,
+  "barrido_zeta": [
+    0,
+    0.02,
+    0.1,
+    0.3,
+    1,
+    1.5
+  ],
+  "sensibilidad": {
+    "G": 0.05,
+    "d": 0.01,
+    "D": 0.01
+  },
+  "materiales": [
+    {
+      "codigo": "AC",
+      "nombre": "Acero Oteva 90",
+      "G_Pa": 79600000000,
+      "color": "#276653",
+      "procedencia": "Gu et al. (2021), valor recogido en el informe; geometría propia idealizada.",
+      "doi": "https://doi.org/10.1177/09544062211010210"
+    },
+    {
+      "codigo": "IN",
+      "nombre": "Inoxidable AISI 302",
+      "E_Pa": 185000000000,
+      "nu": 0.3,
+      "color": "#386d99",
+      "procedencia": "Zani y Solazzi (2024): E; nu = 0.30 es supuesto del escenario. G = E/[2(1+nu)].",
+      "doi": "https://doi.org/10.3390/eng5030089"
+    },
+    {
+      "codigo": "TI",
+      "nombre": "Titanio B120VCA",
+      "G_Pa": 41400000000,
+      "color": "#ae6827",
+      "procedencia": "Antecedente citado en Li et al. (2024), según el informe; no corresponde a la aleación beta-C ensayada allí.",
+      "doi": "https://doi.org/10.3390/aerospace11070514"
+    }
+  ],
+  "procedencia_supuestos": {
+    "geometria": "Diseño numérico común, no medido.",
+    "masas": "Valores del escenario; el accesorio está incluido en m, no se suma dos veces.",
+    "amortiguamiento": "Parámetro del sistema, independiente del material.",
+    "ruido": "Ruido y cuantización sintéticos; no son incertidumbres de un instrumento.",
+    "verificacion": "Comprobación numérica del modelo ideal, no validación experimental."
+  },
+  "documentacion": [
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+    "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.curve_fit.html",
+    "https://numpy.org/doc/stable/reference/random/generator.html",
+    "https://matplotlib.org/stable/api/animation_api.html",
+    "https://matplotlib.org/stable/api/widgets_api.html"
+  ]
+}
+
