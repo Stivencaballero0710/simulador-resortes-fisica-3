@@ -1,2 +1,0 @@
-VERIFICACION NUMERICA APROBADA
-Datos simulados; no validación experimental.

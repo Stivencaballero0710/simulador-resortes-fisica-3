@@ -1,29 +1,47 @@
-# Simulador de resortes — Física 3
+# Simulador de Resortes - Fisica 3
 
-Proyecto del grupo F1B de la UIS. Compara resortes de acero Oteva 90 (AC), acero inoxidable AISI 302 (IN) y titanio B120VCA (TI). Puedes cambiar la masa y el amortiguamiento para ver cómo se mueve cada uno.
+Simulador interactivo de suspension vertical para resortes helicoidales:
+- Acero Oteva 90 (AC)
+- Inoxidable AISI 302 (IN)
+- Titanio B120VCA (TI)
+- Material Personalizado
 
-Los datos son simulados a partir del modelo del informe.
+Calcula rigidez, periodo de oscilacion, frecuencia propia, elongacion de equilibrio, aceleracion maxima, holgura de seguridad y evolucion temporal del sistema. Permite exportar resultados a Excel (.xlsx) y CSV (.csv).
 
-## Cómo abrirlo en Windows
+---
 
-Necesitas Python 3.11 o posterior, con Tcl/Tk para abrir la ventana.
+## Ejecucion en Google Colab
 
-1. Descarga el proyecto desde **Code → Download ZIP** y descomprime la carpeta.
-2. Abre `instalar.bat` y espera a que termine. Este paso necesita internet.
-3. Abre `abrir_simulador.bat`.
+Crea un nuevo cuaderno en [Google Colab](https://colab.research.google.com/) y ejecuta en una celda:
 
-Para guardar tablas, gráficas y una animación, usa `generar_resultados.bat`. Para comprobar la instalación, usa `verificar.bat`.
+```python
+# 1. Clonar el repositorio
+!git clone https://github.com/Stivencaballero0710/simulador-resortes-fisica-3.git
+%cd simulador-resortes-fisica-3
 
-![Ventana del simulador](resultados_ejemplo/graficas/figura_A1_interfaz.png)
+# 2. Instalar dependencias
+!pip install -r requirements.txt
 
-## Dónde encontrar cada cosa
+# 3. Ejecutar simulador interactivo
+!python simulador.py
+```
 
-| Archivo o carpeta | Para qué sirve |
-| --- | --- |
-| [simulador.py](simulador.py) | Código del programa. |
-| [parametros.json](parametros.json) | Masas, materiales y demás ajustes. |
-| [resultados_ejemplo/](resultados_ejemplo) | Tablas y gráficas ya generadas. |
-| [informe/](informe) | Informe en PDF y Word. |
-| [fuentes/](fuentes) | Documentos de partida. |
+---
 
-[Guía de uso y comandos](docs/guia.md) · [Modelo físico](docs/modelo.md) · [Pruebas realizadas](docs/verificacion.md)
+## Ejecucion en Terminal Local (Windows / Linux / Mac)
+
+```bash
+# 1. Instalar dependencias
+pip install -r requirements.txt
+
+# 2. Ejecutar
+python simulador.py
+```
+
+---
+
+## Archivos del Repositorio
+
+- `simulador.py`: Codigo principal del simulador con interfaz por terminal.
+- `parametros.json`: Parametros fisicos y materiales de referencia.
+- `requirements.txt`: Librerias necesarias (numpy, scipy, pandas, openpyxl).
