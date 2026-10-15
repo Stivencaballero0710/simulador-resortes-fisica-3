@@ -1,0 +1,7 @@
+﻿zeta,Regimen,b_kg_s,T_s,tiempo_5_s,tipo_tiempo,a_max_m_s2
+0,Sin amortiguar,0,0.845688314166,inf,No finito,0.552
+0.02,Subamortiguado,0.0891560429808,0.845857502587,20.1619467177,Cota exponencial,0.552
+0.1,Subamortiguado,0.445780214904,0.849948735659,4.0388837474,Cota exponencial,0.552
+0.3,Subamortiguado,1.33734064471,0.886522236333,1.36519635083,Cota exponencial,0.552
+1,Crítico,4.45780214904,,0.638502700629,Cruce monótono,0.552
+1.5,Sobreamortiguado,6.68670322356,,1.11119402107,Cruce monótono,0.552
